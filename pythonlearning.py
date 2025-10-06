@@ -8,8 +8,6 @@ string_with_brackets =  ""
 brackets = 0
 for i in range(len(templates)):
     indexes.append(str(i+1))
-    print(f"{i+1}." + "\n")
-    print(templates[i])
 template = input("\n"+ "Choose one of these templates(Write Number):").strip()
 while True:
     if len(template) > 1:
