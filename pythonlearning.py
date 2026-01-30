@@ -7,7 +7,7 @@ templates = [
 
 def create_template():
     measure_oftime = ["second","minute",
-    "hour","day","month","year","decade","century"]
+    "hour","day","month","year","decade","century","millennium"]
     indexes = []
     string_with_brackets =  ""
     brackets = 0
@@ -69,7 +69,7 @@ def create_template():
                             templates[i] = templates[i].replace(item, word, 1)
                         if "ing)" in item:
                             while word.endswith("ing") == False or word.isalpha() == False:
-                                print("your word should end with ly and word shouldnt contain numbers and symbols")
+                                print("your word should end with ing and word shouldnt contain numbers and symbols")
                                 word = input("Input " + item + ":").strip()
                             templates[i] = templates[i].replace(item, word, 1)
                     else:
