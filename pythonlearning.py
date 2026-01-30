@@ -1,4 +1,3 @@
-import random
 templates = [
     """     It was about (Number) (Measure of time) ago when I arrived at the hospital in a (Mode of Transportation). The hospital is a/an (Adjective) place, there are a lot of (Adjective2) (Noun) here. There are nurses here who have (Color) (Part of the Body ). If someone wants to come into my room I told them that they have to (Verb) first. I’ve decorated my room with (Number2) (Noun2). Today I talked to a doctor and they were wearing a (Noun3) on their ( Part of the Body 2). I heard that all doctors (Verb) (Noun4) every day for breakfast. The most ( Adjective3) thing about being in the hospital is the (Silly Word ) (Noun) !""",
     """     This weekend I am going camping with ( Proper Noun (Person’s Name)). I packed my lantern, sleeping bag, and (Noun). I am so (Adjective (Feeling)) to (Verb) in a tent. I am (Adjective (Feeling) 2) we might see a(n) (Animal), I hear they’re kind of dangerous. While we’re camping, we are going to hike, fish, and (Verb2). I have heard that the (Color) lake is great for ( Verb (ending in ing) ). Then we will (Adverb (ending in ly)) hike through the forest for (Number) (Measure of Time). If I see a (Color) (Animal) while hiking, I am going to bring it home as a pet! At night we will tell (Number) (Silly Word) stories and roast (Noun2) around the campfire!!""",
@@ -48,34 +47,36 @@ def create_template():
                         else:
                             string_with_brackets += item
             string_with_brackets = string_with_brackets.splitlines()
+            string_with_brackets.remove("(n)")
+            print(string_with_brackets)
             for item in string_with_brackets:
-                word = input("Input " + item + ":").strip()
+                word = input("Input " + item + ":").strip().lower()
                 if "Number" in item:
                     while word.isnumeric() == False:
                         print("Write number")
-                        word = input("Input " + item + ":").strip()
+                        word = input("Input " + item + ":").strip().lower()
                     templates[i] = templates[i].replace(item, word, 1)
                 elif "Measure" in item:
                     while word not in measure_oftime:
                         print(f"Write measure of time {measure_oftime}")
-                        word = input("Input " + item + ":").strip()
+                        word = input("Input " + item + ":").strip().lower()
                     templates[i] = templates[i].replace(item, word, 1)
                 else:
                     if "ending in" in item:
                         if "ly)" in item:
                             while word.endswith("ly") == False or word.isalpha() == False:
                                 print("your word should end with ly and word shouldnt contain numbers and symbols")
-                                word = input("Input " + item + ":").strip()
+                                word = input("Input " + item + ":").strip().lower()
                             templates[i] = templates[i].replace(item, word, 1)
                         if "ing)" in item:
                             while word.endswith("ing") == False or word.isalpha() == False:
                                 print("your word should end with ing and word shouldnt contain numbers and symbols")
-                                word = input("Input " + item + ":").strip()
+                                word = input("Input " + item + ":").strip().lower()
                             templates[i] = templates[i].replace(item, word, 1)
                     else:
                         while word.isalpha() == False:
                             print("Write word without adding numbers and symbols")
-                            word = input("Input " + item + ":").strip()
+                            word = input("Input " + item + ":").strip().lower()
                         templates[i] = templates[i].replace(item, word, 1)
             return templates[i]
 print(create_template())
