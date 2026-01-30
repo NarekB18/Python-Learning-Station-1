@@ -12,9 +12,19 @@ def create_template():
     string_with_brackets =  ""
     brackets = 0
     for i in range(len(templates)):
-        indexes.append(i)
-    template = random.randint(0,2)
+        indexes.append(i+1)
     start_end = False
+    while True:
+        try:
+            template = int(input("Choose Template Write 1,2,3 and etc.:"))
+            while template not in indexes:
+                print(f"Write number between {indexes[0]}:{indexes[len(indexes) - 1]}")
+                template = int(input("Choose Template Write 1,2,3 and etc.:"))
+        except ValueError:
+            print("Please write Numbers")
+            continue
+
+        break
     for i in range(len(indexes)):
         if indexes[i] == template:
             for item in templates[i]:
@@ -22,13 +32,13 @@ def create_template():
                     string_with_brackets += item
                     string_with_brackets += "\n"
                     brackets = 0
-                if item ==  "(":
+                if item == "(":
                     start_end = True
                     string_with_brackets += item
                     brackets += 1
                 else:
                     if start_end:
-                        if item ==  ")":
+                        if item == ")":
                             brackets -= 1
                             string_with_brackets += item
                             if brackets < 1:
@@ -44,17 +54,28 @@ def create_template():
                     while word.isnumeric() == False:
                         print("Write number")
                         word = input("Input " + item + ":").strip()
-                    templates[i] = templates[i].replace(item,word)
+                    templates[i] = templates[i].replace(item, word, 1)
                 elif "Measure" in item:
                     while word not in measure_oftime:
                         print(f"Write measure of time {measure_oftime}")
                         word = input("Input " + item + ":").strip()
-                    templates[i] = templates[i].replace(item, word)
+                    templates[i] = templates[i].replace(item, word, 1)
                 else:
-                    while word.isalpha() == False:
-                        print("Write word without adding numbers and symbols")
-                        word = input("Input " + item + ":").strip()
+                    if "ending in" in item:
+                        if "ly)" in item:
+                            while word.endswith("ly") == False or word.isalpha() == False:
+                                print("your word should end with ly and word shouldnt contain numbers and symbols")
+                                word = input("Input " + item + ":").strip()
+                            templates[i] = templates[i].replace(item, word, 1)
+                        if "ing)" in item:
+                            while word.endswith("ing") == False or word.isalpha() == False:
+                                print("your word should end with ly and word shouldnt contain numbers and symbols")
+                                word = input("Input " + item + ":").strip()
+                            templates[i] = templates[i].replace(item, word, 1)
                     else:
-                        templates[i] = templates[i].replace(item, word)
+                        while word.isalpha() == False:
+                            print("Write word without adding numbers and symbols")
+                            word = input("Input " + item + ":").strip()
+                        templates[i] = templates[i].replace(item, word, 1)
             return templates[i]
 print(create_template())
