@@ -1,3 +1,4 @@
+import random
 templates = [
     """     It was about (Number) (Measure of time) ago when I arrived at the hospital in a (Mode of Transportation). The hospital is a/an (Adjective) place, there are a lot of (Adjective2) (Noun) here. There are nurses here who have (Color) (Part of the Body ). If someone wants to come into my room I told them that they have to (Verb) first. I’ve decorated my room with (Number2) (Noun2). Today I talked to a doctor and they were wearing a (Noun3) on their ( Part of the Body 2). I heard that all doctors (Verb) (Noun4) every day for breakfast. The most ( Adjective3) thing about being in the hospital is the (Silly Word ) (Noun) !""",
     """     This weekend I am going camping with ( Proper Noun (Person’s Name)). I packed my lantern, sleeping bag, and (Noun). I am so (Adjective (Feeling)) to (Verb) in a tent. I am (Adjective (Feeling) 2) we might see a(n) (Animal), I hear they’re kind of dangerous. While we’re camping, we are going to hike, fish, and (Verb2). I have heard that the (Color) lake is great for ( Verb (ending in ing) ). Then we will (Adverb (ending in ly)) hike through the forest for (Number) (Measure of Time). If I see a (Color) (Animal) while hiking, I am going to bring it home as a pet! At night we will tell (Number) (Silly Word) stories and roast (Noun2) around the campfire!!""",
@@ -13,17 +14,12 @@ def create_template():
     for i in range(len(templates)):
         indexes.append(i+1)
     start_end = False
-    while True:
-        try:
-            template = int(input("Choose Template Write 1,2,3 and etc.:"))
-            while template not in indexes:
-                print(f"Write number between {indexes[0]}:{indexes[len(indexes) - 1]}")
-                template = int(input("Choose Template Write 1,2,3 and etc.:"))
-        except ValueError:
-            print("Please write Numbers")
-            continue
-
-        break
+    try:
+        template = int(input(f"Choose Template Write {indexes[0]} to {indexes[-1]} and etc.:"))
+        if template not in indexes:
+            template = indexes[random.randint(0, len(indexes) - 1)]
+    except ValueError:
+        template = indexes[random.randint(0, len(indexes) - 1)]
     for i in range(len(indexes)):
         if indexes[i] == template:
             for item in templates[i]:
@@ -47,8 +43,8 @@ def create_template():
                         else:
                             string_with_brackets += item
             string_with_brackets = string_with_brackets.splitlines()
-            string_with_brackets.remove("(n)")
-            print(string_with_brackets)
+            if "(n)" in string_with_brackets:
+                string_with_brackets.remove("(n)")
             for item in string_with_brackets:
                 word = input("Input " + item + ":").strip().lower()
                 if "Number" in item:
